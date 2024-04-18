@@ -145,7 +145,11 @@ class AzureServicePrincipalImportStorageBase(AzureServicePrincipalStorageMixin, 
         if isinstance(url,str):
             match = re.match(AZURE_URL_PATTERN,url)
             if match:
-                can_resolve=True
+                # To match, we need to ensure account_name and container_name matches.
+                url_account_name = match.group('account_name')
+                url_container_name = match.group('container_name')
+                if self.account_name == url_account_name and self.container == url_container_name:
+                    can_resolve=True
         if isinstance(url,list):
             for sub_url in url:
                 if self.can_resolve_url(sub_url):
