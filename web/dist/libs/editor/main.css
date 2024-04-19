@@ -28275,20 +28275,24 @@ div.ant-typography-edit-content.ant-typography-rtl {
   top: 0;
 }
 
-.withGallery--Ccb46 {
-  margin-bottom: 80px;
-}
-
 .withPagination--FtZ5C {
   padding-top: 30px;
 }
 
-.gallery--n23yZ {
-  position: absolute;
-  bottom: -80px;
+.toolContainer--GGJXF {
   display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 70px;
+}
+
+.gallery--n23yZ {
+  position: relative;
+  bottom: -20px;
+  display: flex;
+  flex-direction: column;
   overflow-x: auto;
-  width: 100%;
+  width: 50px;
   padding-bottom: 8px;
 }
 
@@ -28321,9 +28325,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
   background: #fff;
   box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.05), 0px 5px 10px rgba(0,0,0,0.1);
   border-radius: 7px;
-  position: sticky;
-  top: 70px;
-  margin-top: 50px;
+  position: relative;
 }
 .lsf-toolbar::before {
   height: 12px;
@@ -88341,7 +88343,8 @@ textarea.lsf-detailed-region__meta-text:focus {
   justify-content: space-between;
 }
 .lsf-main-view__annotation {
-  padding: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
 }
 .lsf-main-view__infobar {
   padding: 6px 1em 7px;
