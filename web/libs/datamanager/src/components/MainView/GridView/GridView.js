@@ -34,7 +34,7 @@ const GridBody = observer(({ row, fields }) => {
     /**There is a thumbnail:
      * In this case, we ignore every other image fields....
      */
-    if (field_type=='Image' && thumbnail.length>0)
+    if (field.alias!='thumbnail' && field_type=='Image' && thumbnail.length>0)
     {
       return null;
     }
