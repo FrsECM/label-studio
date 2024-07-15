@@ -3,7 +3,6 @@ node_modules
 *.ipynb
 __pycache__
 .local/
-db
 
 # docs
 __generated__
@@ -78,3 +77,6 @@ docker-compose.override.yml
 
 # actions-hub
 .github/actions-hub
+
+# Local Netlify folder
+.netlify

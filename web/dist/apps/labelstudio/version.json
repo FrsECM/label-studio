@@ -1,6 +1,6 @@
 {
-  "message": "Merge branch 'develop' into 'fb-leap-859/colimn-special-characters'",
-  "commit": "f3fa69b33601204f47e6ccc049aefa899b531986",
-  "date": "2024-04-11T15:28:30.000Z",
-  "branch": "fb-leap-859/colimn-special-characters"
+  "message": "fix: OPTIC-884: Incorrect block style name for prediction card (#6089)",
+  "commit": "515fb3eb7fb5ce1835cf7adbb8be6bc60a0d735b",
+  "date": "2024-07-12T17:04:03.000Z",
+  "branch": "develop"
 }
