@@ -3210,9 +3210,6 @@ input.dm-form-input[type=range] {
   padding: 16px 16px 0 0;
   box-sizing: border-box;
 }
-.dm-grid-view__cell:nth-child(var(--column-count)) {
-  padding-right: 0;
-}
 .dm-grid-view__cell-header {
   padding: 5px;
   width: 100%;
