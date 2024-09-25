@@ -4,10 +4,12 @@ short: Project settings
 tier: enterprise
 type: guide
 order: 0
-order_enterprise: 59
+order_enterprise: 119
 meta_title: Project settings
 meta_description: Brief descriptions of all the options available when configuring the project settings
-section: "Project Management"
+section: "Create & Manage Projects"
+parent: "manage_projects"
+parent_enterprise: "manage_projects"
 date: 2024-02-06 22:28:14
 ---
 
@@ -146,8 +148,19 @@ Configure additional settings for annotators.
 | **Show Skip button**         | Use this to show or hide the **Skip** action for annotators. |
 | **Allow empty annotations** | This determines whether annotators can submit a task without making any annotations on it. If enabled, annotators can submit a task even if they haven't added any labels or regions, resulting in an empty annotation. |
 | **Show the Data Manager to annotators** | When disabled, annotators can only enter the label stream. When enabled, annotators can access the Data Manager, where they can select which tasks to complete from the Data Manager list. <br /><br />However, some information is still hidden from annotators and they can only view a subset of the Data Manager columns. For example, they cannot see columns such as Annotators, Agreement, Reviewers, and more. |
-| **Reveal pre-annotations interactively** | When enabled, pre-annotations are not automatically displayed to an annotator. Instead, annotators can choose when to reveal these pre-annotations as they work on the task, providing them with the opportunity to first assess the image or text without the influence of the model's predictions. |
+| **Reveal pre-annotations interactively** | When enabled, pre-annotation regions (such as bounding boxes or text spans) are not automatically displayed to the annotator. Instead, annotators can draw a selection rectangle to reveal pre-annotation regions within that area. This allows annotators to first review the image or text without being influenced by the model’s predictions. Pre-annotation regions must have the attribute `"hidden": true`. <br /><br />This feature is particularly useful when there are multiple low-confidence regions that you prefer not to display all at once to avoid clutter. |
 | **Annotators must leave a comment on skip** | When enabled, annotators are required to leave a comment when skipping a task. |
+
+</dd>
+
+<dt id="predictions">Live Predictions</dt>
+
+<dd>
+
+If you have an ML backend or model connected, or if you're using [Prompts](prompts_overview) to generate predictions, you can use this setting to determine whether tasks should be pre-labeled using predictions. For more information, see [Integrate Label Studio into your machine learning pipeline](ml) and [Generate predictions from a prompt](prompts_predictions). 
+
+Use the drop-down menu to select the predictions source. For example, you can select a [connected model](#Model) or a set of [predictions](#Predictions). 
+
 
 </dd>
 
@@ -443,33 +456,34 @@ To assign a project-level role, first add the person to your project. Once added
 !!! note
     This is only available for users who have the Annotator or Reviewer role applied at the organization level. Users with Manager, Administrator, and Owner role cannot have their permissions downgraded to Annotator or Reviewer on a per-project basis. 
 
-## Machine learning
+## Model
 
-Click **Add Model** to connect an machine learning (ML) backend to your project. For more information about using ML backends, see [Machine learning integration](ml).
+Click **Connect Model** to connect a machine learning (ML) backend to your project. For more information on connecting a model, see [Machine learning integration](ml).
 
-<dl>
-
-<dt>ML-Assisted Labeling</dt>
-
-<dd>
+You have the following configuration options:
 
 | Field          | Description    |
 | ------------- | ------------ |
-| **Start model training after any annotations are submitted or updated**         | Triggers the connected ML backend to start the training process each time an annotation is created or updated. <br /><br />This is part of an [active learning loop](active_learning) where the model can be continuously improved as new annotations are added to the dataset. When this setting is enabled, the ML backend's `fit()` method is called, allowing the model to learn from the most recent annotations and potentially improve its predictions for subsequent tasks.   |
-| **Retrieve predictions when loading a task automatically** | When enabled, Label Studio automatically fetches predictions from the connected ML backend for each task as it is loaded by an annotator. This means that when an annotator navigates to a new task, Label Studio sends a request to the ML backend to retrieve any available predictions for that task, which are then displayed to the annotator. <br /><br />When disabled, someone must manually retrieve predictions. This can be done in using the **Actions** menu in the Data Manager.  |
-| **Show predictions to annotators in the Label Stream and Quick View** | When enabled, predictions are shown to annotators during the labeling process. This is enabled by default.<br /><br />Disable this option to hide predictions from annotators. For example, you might want to hide predictions to prevent bias. |
+| **Start model training on annotation submission**         | Triggers the connected ML backend to start the training process each time an annotation is created or updated. <br /><br />This is part of an [active learning loop](active_learning) where the model can be continuously improved as new annotations are added to the dataset. When this setting is enabled, the ML backend's `fit()` method is called, allowing the model to learn from the most recent annotations and potentially improve its predictions for subsequent tasks.   |
+| [**Interactive preannotations**](ml#interactive-pre-annotations)         | (Available when creating or editing a model connection)<br /><br />Enable this option to allow the model to assist with the labeling process by providing real-time predictions or suggestions as annotators work on tasks.  <br /><br />In other words, as you interact with data (for example, by drawing a region on an image, highlighting text, or asking an LLM a question), the ML backend receives this input and returns predictions based on it.   |
 
-</dd>
 
-<dt>Model Version</dt>
+And the following actions are available from the overflow menu next to a connected model:
 
-<dd>
+| Action          | Description    |
+| ------------- | ------------ |
+| **Start Training**         | Manually initiate training. Use this action if you want to control when the model training occurs, such as after a specific number of annotations have been collected or at certain intervals.  |
+| **Send Test Request**         | (Available from the overflow menu next to the connected model)<br /><br />Use this for troubleshooting and sending a test resquest to the connected model.   |
+| **Edit**         | Edit the model name, URL, and parameters. For more information, see [Connect a model to Label Studio](ml#Connect-a-model-to-Label-Studio). |
+| **Delete**         | Remove the connection to the model. |
 
-If you have multiple versions, you can select which version is used to generate predictions. 
+## Predictions
 
-</dd>
+From here you can view predictions that have been imported, generated with [Prompts](prompts_predictions), or generated when executing the **Batch Predictions** action from the Data Manager. For more information on using predictions, see [Import pre-annotated data into Label Studio](predictions). 
 
-</dl>
+To remove predictions from the project, click the overflow menu next to the predictions set and select **Delete**.  
+
+To determine which predictions are show to annotators, use the [**Annotation > Live Predictions** section](#Annotation). 
 
 ## Cloud storage
 
@@ -498,3 +512,4 @@ From here, you can access actions that result in data loss, and should be used w
 * **Delete Project**
 
     Deleting a project permanently removes all tasks, annotations, and project data from Label Studio.
+
